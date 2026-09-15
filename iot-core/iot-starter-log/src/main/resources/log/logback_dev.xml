@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration scan="true" scanPeriod="60 seconds">
+
+    <!-- 使用Spring Boot提供的颜色转换器和异常格式 -->
+    <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+
+    <!-- 开发环境控制台格式 -->
+    <property name="IOT_CONSOLE_LOG_PATTERN"
+              value="%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} %clr(%5p) %clr(---){faint} %clr([%15.15t]){faint} %clr([traceId:%X{traceId:-}]){yellow} %clr(%-40.40logger{39}){cyan} : %m%n%wEx"/>
+    <!-- 控制台输出 -->
+    <appender name="STDOUT"
+              class="ch.qos.logback.core.ConsoleAppender">
+
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>${IOT_CONSOLE_LOG_PATTERN}</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+
+    </appender>
+
+    <!-- 降低框架日志噪声 -->
+    <logger name="org.springframework" level="INFO"/>
+    <logger name="org.mybatis.spring" level="INFO"/>
+    <logger name="com.baomidou.mybatisplus" level="INFO"/>
+
+    <!-- 开发环境输出项目DEBUG日志 -->
+    <logger name="com.iot" level="DEBUG"/>
+
+    <!-- 默认日志级别 -->
+    <root level="INFO">
+        <appender-ref ref="STDOUT"/>
+    </root>
+
+</configuration>

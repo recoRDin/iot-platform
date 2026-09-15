@@ -1,0 +1,2 @@
+com.iot.core.boot.config.IotJacksonAutoConfiguration
+com.iot.core.boot.config.IotCorsAutoConfiguration

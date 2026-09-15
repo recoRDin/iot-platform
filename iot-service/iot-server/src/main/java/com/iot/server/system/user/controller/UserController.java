@@ -1,0 +1,30 @@
+package com.iot.server.system.user.controller;
+
+import com.iot.core.log.annotation.ApiLog;
+import com.iot.core.tool.api.R;
+import com.iot.server.system.user.dto.UserCreateRequest;
+import com.iot.server.system.user.service.IUserService;
+import jakarta.validation.Valid;
+import org.springframework.context.annotation.Profile;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@Profile("dev")
+@RestController
+@RequestMapping("/system/user")
+public class UserController {
+
+    private final IUserService userService;
+
+    public UserController(IUserService userService) {
+        this.userService = userService;
+    }
+
+    @ApiLog("创建用户")
+    @PostMapping("/create")
+    public R<String> create(@Valid @RequestBody UserCreateRequest request) {
+        return R.data(userService.create(request).toString());
+    }
+}

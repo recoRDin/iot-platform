@@ -1,0 +1,27 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: "jdbc:mysql://localhost:3306/iot-platform?useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true"
+    username: ${IOT_DB_USERNAME:root}
+    password: ${IOT_DB_PASSWORD:}
+
+  data:
+    redis:
+      host: ${IOT_REDIS_HOST:127.0.0.1}
+      port: ${IOT_REDIS_PORT:6379}
+      database: ${IOT_REDIS_DATABASE:0}
+      password: ${IOT_REDIS_PASSWORD:}
+      client-type: lettuce
+      client-name: ${spring.application.name}
+      connect-timeout: 3s
+      timeout: 3s
+
+logging:
+  level:
+    root: info
+    com.iot: debug
+
+iot:
+  cors:
+    enabled: false
+    allowed-origins: []
