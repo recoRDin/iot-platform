@@ -26,22 +26,14 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             "/auth/login",
             "/error"
     );
-    private static final Set<String> DEV_PUBLIC_PATHS = Set.of(
-            "/system/tenant/create",
-            "/system/role/create",
-            "/system/user/create"
-    );
 
     private final JwtTokenService jwtTokenService;
     private final ObjectMapper objectMapper;
-    private final boolean devMode;
 
     public JwtAuthenticationFilter(JwtTokenService jwtTokenService,
-                                   ObjectMapper objectMapper,
-                                   boolean devMode) {
+                                   ObjectMapper objectMapper) {
         this.jwtTokenService = jwtTokenService;
         this.objectMapper = objectMapper;
-        this.devMode = devMode;
     }
 
     //判断是否过滤
@@ -51,7 +43,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             return true;
         }
         String path = request.getRequestURI().substring(request.getContextPath().length());
-        return PUBLIC_PATHS.contains(path) || (devMode && DEV_PUBLIC_PATHS.contains(path));
+        return PUBLIC_PATHS.contains(path);
     }
 
     @Override

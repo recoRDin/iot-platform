@@ -2,6 +2,8 @@ package com.iot.server.system.role.controller;
 
 import com.iot.core.log.annotation.ApiLog;
 import com.iot.core.tool.api.R;
+import com.iot.server.auth.annotation.RequireRole;
+import com.iot.server.auth.constant.RoleConstants;
 import com.iot.server.system.role.dto.RoleCreateRequest;
 import com.iot.server.system.role.service.IRoleService;
 import jakarta.validation.Valid;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Profile("dev")
 @RestController
 @RequestMapping("/system/role")
+@RequireRole(RoleConstants.ADMIN)
 public class RoleController {
 
     private final IRoleService roleService;

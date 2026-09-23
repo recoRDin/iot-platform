@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 @Profile("dev")
 @RestController
 @RequestMapping("/system/tenant")
+@RequireRole(RoleConstants.ADMIN)
 public class TenantController {
 
     private final ITenantService tenantService;
@@ -41,7 +42,6 @@ public class TenantController {
      * 根据数据库主键查询租户详情。
      */
     @ApiLog("查询租户详情")
-    @RequireRole(RoleConstants.ADMIN)
     @GetMapping("/detail")
     public R<TenantEntity> detail(@RequestParam("id") Long id) {
         return R.data(tenantService.detail(id));

@@ -42,6 +42,14 @@ iot:
       secret: ${IOT_TOKEN_SECRET:}
       issuer: iot-platform
       access-token-seconds: 7200
+
+  bootstrap:
+    admin:
+      enabled: ${IOT_BOOTSTRAP_ADMIN_ENABLED:false}
+      tenant-name: ${IOT_BOOTSTRAP_TENANT_NAME:平台管理租户}
+      account: ${IOT_BOOTSTRAP_ADMIN_ACCOUNT:admin}
+      password: ${IOT_BOOTSTRAP_ADMIN_PASSWORD:}
+      real-name: ${IOT_BOOTSTRAP_ADMIN_REAL_NAME:平台管理员}
 # 根据环境加载日志配置
 logging:
   config: classpath:log/logback_${iot.env}.xml
