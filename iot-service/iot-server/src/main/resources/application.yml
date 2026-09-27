@@ -36,6 +36,8 @@ iot:
       - sys_user
       - sys_role
       - sys_user_role
+      - iot_product
+      - iot_product_property
 
   auth:
     token:
