@@ -38,6 +38,8 @@ iot:
       - sys_user_role
       - iot_product
       - iot_product_property
+      - iot_product_event
+      - iot_product_service
 
   auth:
     token:

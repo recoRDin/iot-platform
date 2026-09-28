@@ -31,6 +31,39 @@ mysql -uroot --default-character-set=utf8mb4 < database/003_product_property.sql
 
 `003_product_property.sql` 只增加 `iot_product_property` 表，用于保存产品可动态配置的物模型属性定义，不保存设备实际上报的遥测值。
 
+### 产品物模型事件表
+
+已有数据库继续执行：
+
+```powershell
+$env:MYSQL_PWD="你的数据库密码"
+mysql -uroot --default-character-set=utf8mb4 < database/004_product_event.sql
+```
+
+`004_product_event.sql` 只增加 `iot_product_event` 表。`output_json` 保存事件动态输出参数定义，不保存设备实际发生的事件记录。
+
+### 产品物模型服务表
+
+已有数据库继续执行：
+
+```powershell
+$env:MYSQL_PWD="你的数据库密码"
+mysql -uroot --default-character-set=utf8mb4 < database/005_product_service.sql
+```
+
+`005_product_service.sql` 只增加 `iot_product_service` 表。`input_json` 和 `output_json` 保存服务的动态输入、输出参数定义；服务表示平台可调用的设备能力，不保存实际调用记录。
+
+### 产品物模型发布版本表
+
+已有数据库继续执行：
+
+```powershell
+$env:MYSQL_PWD="你的数据库密码"
+mysql -uroot --default-character-set=utf8mb4 < database/006_product_model_version.sql
+```
+
+`006_product_model_version.sql` 只增加 `iot_product_model_version` 表。属性、事件和服务表继续保存可编辑定义；每次发布生成一个不可变的完整 JSON 快照，新版本标记为 `published`，上一发布版本转为 `history`。
+
 ## 2. 初始化首个平台管理员
 
 管理员密码不写入仓库。首次启动应用前设置：

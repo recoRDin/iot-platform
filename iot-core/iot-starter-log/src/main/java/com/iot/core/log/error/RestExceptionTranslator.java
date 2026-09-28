@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
-
+import jakarta.validation.ConstraintViolationException;
 //将 MVC 请求中的业务异常转换为统一返回结果。
 @RestControllerAdvice
 public class RestExceptionTranslator {
@@ -92,6 +92,22 @@ public class RestExceptionTranslator {
         log.warn("请求参数类型错误，参数名：{}", exception.getName());
 
         return R.fail(ResultCode.PARAM_TYPE_ERROR);
+    }
+
+    @ExceptionHandler(ConstraintViolationException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public R<Void> handleConstraintViolation(
+            ConstraintViolationException exception) {
+
+        log.warn("请求参数校验失败");
+
+        String message = exception.getConstraintViolations()
+                .stream()
+                .findFirst()
+                .map(violation -> violation.getMessage())
+                .orElse(ResultCode.PARAM_VALID_ERROR.getMessage());
+
+        return R.fail(ResultCode.PARAM_VALID_ERROR, message);
     }
 
     //未知系统异常

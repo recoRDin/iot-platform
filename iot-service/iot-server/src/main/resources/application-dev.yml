@@ -22,6 +22,11 @@ logging:
     com.iot: debug
 
 iot:
+  auth:
+    token:
+      # 开发阶段减少频繁登录；仅对重启后新签发的 Token 生效
+      access-token-seconds: 5184000
+
   cors:
     enabled: false
     allowed-origins: []
